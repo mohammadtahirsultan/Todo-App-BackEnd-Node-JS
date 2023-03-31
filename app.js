@@ -18,8 +18,8 @@ app.use(cors({
   origin:[process.env.FRONT_END_URL],
   methods:["GET","POST","UPDATE","DELETE"],
   credentials:true,
-  sameSite:"none",
-  secure:true
+  sameSite:process.env.NODE_ENV==='Development'? "lax": "none",
+  secure:process.env.NODE_ENV==='Development'?false:true
 }))
 // Using Routes
 app.use("/api/v1/users", userRouter);
