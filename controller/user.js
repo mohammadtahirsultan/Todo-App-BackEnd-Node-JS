@@ -14,13 +14,13 @@ export const login = async (req, res,next) => {
     const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-      return next(new ErrorHandler("Invalid Credentials", 400));
+      return next(new ErrorHandler("Invalid Email or Password", 400));
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return next(new ErrorHandler("Invalid Credentials", 400));
+      return next(new ErrorHandler("Invalid Email or Password", 400));
     }
 
     sendCookie(user, res, `Welcome Back, ${user.name}`, 200);
@@ -41,6 +41,7 @@ export const logout = (req, res) => {
     })
     .json({
       success: true,
+      user: req.user,
       message: "Logout Successfully",
     });
 };

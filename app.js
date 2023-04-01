@@ -17,9 +17,7 @@ app.use(cookieParser());
 app.use(cors({
   origin:[process.env.FRONT_END_URL],
   methods:["GET","POST","UPDATE","DELETE"],
-  credentials:true,
-  sameSite:process.env.NODE_ENV==='Development'? "lax": "none",
-  secure:process.env.NODE_ENV==='Development'?false:true
+  credentials:true
 }))
 // Using Routes
 app.use("/api/v1/users", userRouter);
